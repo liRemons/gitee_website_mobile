@@ -9,7 +9,9 @@
         <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
       </template>
     </van-nav-bar>
+     
     <div class="main"><router-view></router-view></div>
+  
   </div>
 </template>
 
@@ -17,6 +19,7 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
+  components: {  },
   setup() {
     return {};
   },
@@ -48,6 +51,6 @@ export default defineComponent({
 }
 .main {
   flex: 1;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 </style>

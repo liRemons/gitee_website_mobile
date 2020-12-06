@@ -1,9 +1,25 @@
 <template>
   <div class="flex">
     <van-empty description="开发中..." v-if="!html[routerName]">
-      <van-button round class="bottom-button" @click="$router.replace('/')"> 回首页 </van-button>
+      <van-button round class="bottom-button" @click="$router.replace('/')">
+        回首页
+      </van-button>
     </van-empty>
     <div class="md" v-html="html[routerName]"></div>
+    <LeftBtn @handleCatalog="handleCatalog"></LeftBtn>
+    <van-popup
+      v-model:show="showCatalog"
+      position="right"
+      :style="{ height: '100%', width: '80%' }"
+      :lock-scroll="false"
+    >
+      <Catalog
+        @close="showCatalog = false"
+        @scrollTo="scrollTo"
+        :list="authorList"
+        :activeIndex="activeIndex"
+      ></Catalog>
+    </van-popup>
   </div>
 </template>
 
@@ -22,7 +38,9 @@ import Vue from "@/assets/js/Vue";
 import React from "@/assets/js/React";
 import HTML_CSS from "@/assets/js/HTML_CSS";
 import TypeScript from "@/assets/js/TypeScript";
+import Catalog from "./Catalog.vue";
 export default defineComponent({
+  components: { Catalog },
   setup() {
     let list: any = [];
     const { proxy }: any = getCurrentInstance();
@@ -30,8 +48,9 @@ export default defineComponent({
       html: { JS, Vue, React, HTML_CSS, TypeScript },
       routerName: proxy.$route.name,
       authorList: <any>[],
-      menuIndex: 0,
+      activeIndex: 0,
       scrollList: [],
+      showCatalog: false,
     });
 
     watch(
@@ -46,8 +65,6 @@ export default defineComponent({
       }
     );
     onMounted(() => {
-      let MdEle: any = document.querySelector(".md");
-      MdEle.onscroll = debonce(scroll, 500); // 每隔 0.5s 输出
       init();
     });
 
@@ -139,27 +156,24 @@ export default defineComponent({
       }, 1000);
     };
 
-    const debonce = (fn: any, delay: number) => {
-      let time: any = null;
-      return () => {
-        if (time) {
-          clearTimeout(time);
-        }
-        time = setTimeout(fn, delay);
-      };
-    };
-    const scroll = () => {
-      let MdEle: any = document.querySelector(".md");
-      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
-      state.menuIndex = state.scrollList.findIndex((item) => item > scrollTop);
-    };
+    // 菜单控制
     const scrollTo = (index: any) => {
-      let mdEle = document.querySelector(".md") as Element;
+      let mdEle = document.querySelector(".main") as Element;
       mdEle.scrollTop = list[index].offsetTop - 100;
+    };
+
+    const handleCatalog = () => {
+      let MdEle: any = document.querySelector(".main");
+      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      state.activeIndex = state.scrollList.findIndex(
+        (item: any) => item > scrollTop
+      );
+      state.showCatalog = true;
     };
     return {
       ...toRefs(state),
       scrollTo,
+      handleCatalog,
     };
   },
 });
@@ -169,28 +183,6 @@ export default defineComponent({
 </style>
 
 <style lang="less">
-// .author {
-//   h2,
-//   h3,
-//   h4,
-//   h5 {
-//     cursor: pointer;
-//     margin: 0;
-//     padding: 10px 0;
-//   }
-//   h2 {
-//     font-size: 18px !important;
-//   }
-//   h3 {
-//     font-size: 16px !important;
-//   }
-//   h4 {
-//     font-size: 14px !important;
-//   }
-//   h5 {
-//     font-size: 12px !important;
-//   }
-// }
 </style>
 <style scoped lang="less">
 .author {
