@@ -1,7 +1,7 @@
 <template>
   <div class="bg">
     <van-nav-bar
-      :title="$route.meta.title"
+      :title="$route.meta.title || 'Remons'"
       :left-arrow="$route.path !== '/'"
       @click-left="$router.go(-1)"
     >
