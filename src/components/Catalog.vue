@@ -99,12 +99,12 @@ export default defineComponent({
           if (item.index === activeIndex) {
             indexArr.push(item.index);
           }
-          item.childNode.length &&
+          item.childNode&&item.childNode.length &&
             item.childNode.forEach((a: any) => {
               if (a.index === activeIndex) {
                 indexArr.push(a.index, item.index);
               }
-              a.childNode.length &&
+              a.childNode&&a.childNode.length &&
                 a.childNode.forEach((c: any) => {
                   if (c.index === activeIndex) {
                     indexArr.push(c.index, item.index, a.index);
