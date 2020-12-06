@@ -1,18 +1,28 @@
 <template>
   <div class="leftBtn">
-    <div
-      class="btn"
-      v-for="item in option"
-      :key="item.name"
-      @click="handle(item.name)"
-    >
-      <van-icon :name="item.icon" />
+    <div v-for="item in option">
+      <transition name="van-slide-right">
+        <div
+          class="btn"
+          :key="item.name"
+          v-show="item.name !== 'top' || flag"
+          @click="handle(item.name)"
+        >
+          <van-icon :name="item.icon" />
+        </div>
+      </transition>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, getCurrentInstance, toRefs, reactive } from "vue";
+import {
+  defineComponent,
+  getCurrentInstance,
+  toRefs,
+  reactive,
+  onMounted,
+} from "vue";
 
 export default defineComponent({
   props: {
@@ -35,6 +45,7 @@ export default defineComponent({
           icon: "wap-home-o",
         },
       ],
+      flag: false,
     });
 
     if (proxy.options.length !== 0) {
@@ -61,6 +72,26 @@ export default defineComponent({
         proxy.$emit("handleCatalog");
       }
     };
+
+    const debonce = (fn: any, delay: number) => {
+      let time: any = null;
+      return () => {
+        if (time) {
+          clearTimeout(time);
+        }
+        time = setTimeout(fn, delay);
+      };
+    };
+    const scroll = () => {
+      let MdEle: any = document.querySelector(".main");
+      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      scrollTop >= 400 ? (state.flag = true) : (state.flag = false);
+    };
+
+    onMounted(() => {
+      let MdEle: any = document.querySelector(".main");
+      MdEle.onscroll = debonce(scroll, 500); // 每隔 0.5s 输出
+    });
 
     return {
       ...toRefs(state),

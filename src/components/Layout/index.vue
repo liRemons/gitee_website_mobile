@@ -1,17 +1,17 @@
 <template>
   <div class="bg">
-    <van-nav-bar
-      :title="$route.meta.title || 'Remons'"
-      :left-arrow="$route.path !== '/'"
-      @click-left="$router.go(-1)"
-    >
+    <van-nav-bar :left-arrow="$route.path !== '/'" @click-left="$router.go(-1)">
       <template #right>
         <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
       </template>
+      <template #title>
+        <div @click="reload">
+          {{ $route.meta.title || "Remons" }}
+        </div>
+      </template>
     </van-nav-bar>
-     
+
     <div class="main"><router-view></router-view></div>
-  
   </div>
 </template>
 
@@ -19,9 +19,14 @@
 import { defineComponent } from "vue";
 
 export default defineComponent({
-  components: {  },
+  components: {},
   setup() {
-    return {};
+    const reload = () => {
+      window.location.reload();
+    };
+    return {
+      reload,
+    };
   },
 });
 </script>
