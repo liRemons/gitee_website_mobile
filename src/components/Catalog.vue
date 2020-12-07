@@ -33,7 +33,7 @@
               >
                 <div v-html="a.parentNode"></div>
               </van-cell>
-              <van-collapse v-model="activeName" v-else accordion>
+              <van-collapse v-model="activeName" v-else>
                 <van-collapse-item :name="a.index">
                   <template #title>
                     <div v-html="a.parentNode"></div>
@@ -71,13 +71,14 @@ export default defineComponent({
   props: { list: Array, activeIndex: Number },
   setup() {
     const { proxy }: any = getCurrentInstance();
-    const state = reactive({
-      activeName: [proxy.activeIndex],
+    const state: any = reactive({
+      activeName: [],
     });
     const close = () => {
       proxy.$emit("close");
     };
     const handle = (data: any) => {
+      console.log(data, "data");
       initActive(data.index);
       proxy.$emit("scrollTo", data.index);
     };
@@ -99,12 +100,14 @@ export default defineComponent({
           if (item.index === activeIndex) {
             indexArr.push(item.index);
           }
-          item.childNode&&item.childNode.length &&
+          item.childNode &&
+            item.childNode.length &&
             item.childNode.forEach((a: any) => {
               if (a.index === activeIndex) {
                 indexArr.push(a.index, item.index);
               }
-              a.childNode&&a.childNode.length &&
+              a.childNode &&
+                a.childNode.length &&
                 a.childNode.forEach((c: any) => {
                   if (c.index === activeIndex) {
                     indexArr.push(c.index, item.index, a.index);
