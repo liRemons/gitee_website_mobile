@@ -1,11 +1,11 @@
 <template>
   <div class="flex">
-    <van-empty description="开发中..." v-if="!html[routerName]">
+    <van-empty description="开发中..." v-if="!html">
       <van-button round class="bottom-button" @click="$router.replace('/')">
         回首页
       </van-button>
     </van-empty>
-    <div class="md" v-html="html[routerName]"></div>
+    <div class="md" v-html="html"></div>
     <LeftBtn @handleCatalog="handleCatalog"></LeftBtn>
     <van-popup
       v-model:show="showCatalog"
@@ -33,11 +33,6 @@ import {
   watch,
 } from "vue";
 import { useRoute } from "vue-router";
-import JS from "@/assets/js/JS";
-import Vue from "@/assets/js/Vue";
-import React from "@/assets/js/React";
-import HTML_CSS from "@/assets/js/HTML_CSS";
-import TypeScript from "@/assets/js/TypeScript";
 import Catalog from "./Catalog.vue";
 export default defineComponent({
   components: { Catalog },
@@ -45,7 +40,7 @@ export default defineComponent({
     let list: any = [];
     const { proxy }: any = getCurrentInstance();
     const state = reactive({
-      html: { JS, Vue, React, HTML_CSS, TypeScript },
+      html: "",
       routerName: proxy.$route.name,
       authorList: <any>[],
       activeIndex: 0,
@@ -60,12 +55,12 @@ export default defineComponent({
         state.routerName = router.name;
         state.authorList = [];
         proxy.$nextTick(() => {
-          init();
+          state.routerName !== "Home" && getFile();
         });
       }
     );
     onMounted(() => {
-      init();
+      getFile();
     });
 
     const createHeader = () => {
@@ -149,8 +144,9 @@ export default defineComponent({
       });
       return arr;
     };
-
-    const init = () => {
+    const getFile = async () => {
+      let res = await proxy.$api.HOME.getFileOption(state.routerName);
+      state.html = res;
       setTimeout(() => {
         createHeader();
       }, 1000);
@@ -178,12 +174,6 @@ export default defineComponent({
   },
 });
 </script>
-
-<style src="../assets/css/md.css">
-</style>
-
-<style lang="less">
-</style>
 <style scoped lang="less">
 .author {
   width: 20%;

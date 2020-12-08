@@ -9,8 +9,10 @@ import methods from 'methods-remons'
 import 'normalize.css/normalize.css'
 import Vant from 'vant';
 import 'vant/lib/index.css'
+import api from './api'
 import LeftBtn from '@/components/leftBtn.vue'
 app.component('LeftBtn', LeftBtn)
+app.config.globalProperties.$api = api
 import { ImagePreview } from "vant";
 app.config.globalProperties.ImagePreview = ImagePreview
 app.config.globalProperties.$utils = methods

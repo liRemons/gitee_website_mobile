@@ -115,7 +115,7 @@ export default defineComponent({
     box-shadow: 0px 0px 6px rgba(92, 92, 92, 0.397);
     margin-bottom: 1rem;
     font-size: 2.2rem;
-    line-height: 5.5rem;
+    line-height: 5rem;
     text-align: center;
   }
   .btn:active {
