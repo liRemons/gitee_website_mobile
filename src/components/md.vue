@@ -5,7 +5,7 @@
         回首页
       </van-button>
     </van-empty>
-    <div class="md" v-html="html"></div>
+    <div class="md" v-html="html" @click="proview"></div>
     <LeftBtn @handleCatalog="handleCatalog"></LeftBtn>
     <van-popup
       v-model:show="showCatalog"
@@ -34,6 +34,7 @@ import {
 } from "vue";
 import { useRoute } from "vue-router";
 import Catalog from "./Catalog.vue";
+import { ImagePreview } from "vant";
 export default defineComponent({
   components: { Catalog },
   setup() {
@@ -65,9 +66,9 @@ export default defineComponent({
 
     const createHeader = () => {
       let mdHeader: any = [];
-      mdHeader = document.querySelectorAll(
-        ".md-header-anchor"
-      ) as NodeListOf<Element>;
+      mdHeader = document.querySelectorAll(".md-header-anchor") as NodeListOf<
+        Element
+      >;
       mdHeader.forEach((item: any) => {
         if (!["H1", "H2"].includes(item.parentNode.nodeName)) {
           list.push({
@@ -166,10 +167,17 @@ export default defineComponent({
       );
       state.showCatalog = true;
     };
+
+    const proview = (e: any) => {
+      if (e.target.nodeName === "IMG") {
+        ImagePreview([e.target.currentSrc]);
+      }
+    };
     return {
       ...toRefs(state),
       scrollTo,
       handleCatalog,
+      proview,
     };
   },
 });
