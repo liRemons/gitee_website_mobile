@@ -9,7 +9,6 @@
     },
     "dependencies": {
         "axios": "^0.21.0",
-        "file-saver": "^2.0.5",
         "methods-r": "^1.1.2",
         "normalize.css": "^8.0.1",
         "vant": "^3.0.0-rc.2",

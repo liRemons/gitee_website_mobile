@@ -9,7 +9,7 @@
         <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
       </template>
     </van-nav-bar>
-    <div class="main">
+    <div class="main menu">
       <div v-for="item in list">
         <van-cell
           clickable
@@ -78,7 +78,6 @@ export default defineComponent({
       proxy.$emit("close");
     };
     const handle = (data: any) => {
-      console.log(data, "data");
       initActive(data.index);
       proxy.$emit("scrollTo", data.index);
     };
@@ -117,6 +116,14 @@ export default defineComponent({
         });
       }
       state.activeName = [...new Set(indexArr)];
+      setTimeout(() => {
+        let el: any = document.querySelector(".active") as Element;
+        if (el) {
+          let mainEl = document.querySelector(".menu") as Element;
+          console.log(el.offsetTop)
+          mainEl.scrollTop = el.offsetTop;
+        }
+      }, 600);
     };
     return {
       close,
