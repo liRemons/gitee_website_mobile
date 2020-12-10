@@ -121,7 +121,7 @@ export default defineComponent({
         if (el) {
           let mainEl = document.querySelector(".menu") as Element;
           console.log(el.offsetTop)
-          mainEl.scrollTop = el.offsetTop;
+          mainEl.scrollTop = el.offsetTop-80;
         }
       }, 600);
     };
