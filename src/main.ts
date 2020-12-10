@@ -5,7 +5,7 @@ const app = createApp(App)
 import { useStore } from 'vuex'
 import { useRoute } from 'vue-router'
 import store from './store'
-import methods from 'methods-remons'
+import methods from 'methods-r'
 import 'normalize.css/normalize.css'
 import Vant from 'vant';
 import 'vant/lib/index.css'

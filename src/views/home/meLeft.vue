@@ -37,7 +37,7 @@
       closeOnClickOverlay
       :showConfirmButton="false"
     >
-      <van-cell value="复制号码" clickable />
+      <van-cell value="复制号码" clickable @click="copy" />
       <van-cell
         value="查看二维码"
         clickable
@@ -53,10 +53,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs } from "vue";
+import { defineComponent, reactive, toRefs, getCurrentInstance } from "vue";
 import { ImagePreview } from "vant";
 export default defineComponent({
   setup() {
+    const { proxy }: any = getCurrentInstance();
     const initialTime = new Date("2018-03-12").getTime();
     const nowTime = new Date().getTime();
     const count: any = (
@@ -82,27 +83,34 @@ export default defineComponent({
         { icon: "wap-home-o", introduce: "故乡：山东 菏泽" },
       ],
       contactOption: [
-        { icon: "wechat", visible: false, img: "weChat" },
-        { icon: "qq", visible: false, img: "QQ" },
-        { icon: "dingTalk", visible: false, img: "ding" },
+        { icon: "wechat", visible: false, img: "weChat", value: "liRemons" },
+        { icon: "qq", visible: false, img: "QQ", value: "1759005892" },
+        { icon: "dingTalk", visible: false, img: "ding", value: "remons" },
       ],
       show: false,
-      contactOptionDetail: {},
+      contactOptionDetail: <any>{},
     });
 
     const handle = (data: any) => {
       data.value && (window.location.href = `tel:${data.value}`);
     };
 
-    const contactOptionClick = (data:any) => {
+    const contactOptionClick = (data: any) => {
       state.show = true;
       state.contactOptionDetail = data;
+    };
+
+    const copy = () => {
+      proxy.$toast.success('复制成功');
+      proxy.$utils.copy(state.contactOptionDetail.value);
+      state.show=false
     };
     return {
       ...toRefs(state),
       handle,
       contactOptionClick,
       ImagePreview,
+      copy,
     };
   },
 });

@@ -3,5 +3,5 @@ declare module '*.vue' {
   const component: DefineComponent<{}, {}, any>
   export default component
 }
-declare module 'methods-remons'
+declare module 'methods-r'
 declare module 'file-saver'
