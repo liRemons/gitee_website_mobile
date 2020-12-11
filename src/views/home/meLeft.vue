@@ -100,22 +100,9 @@ export default defineComponent({
       state.contactOptionDetail = data;
     };
 
-    function copycd(value: string) {
-      const input = document.createElement("input");
-      const body: any = document.querySelector("body");
-      input.setAttribute("value", value);
-      input.setAttribute("class", 'copyInput');
-      // input.setAttribute("style", "visibility:hidden");
-      body.appendChild(input);
-      input.select();
-      document.execCommand("copy");
-      body.removeChild(input)
-
-    }
-
     const copy = () => {
       proxy.$toast.success("复制成功");
-      copycd(state.contactOptionDetail.value);
+      proxy.$utils.copy(state.contactOptionDetail.value);
       state.show = false;
     };
     return {

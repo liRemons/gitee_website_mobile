@@ -73,26 +73,6 @@ export default defineComponent({
       }
     };
 
-    const debonce = (fn: any, delay: number) => {
-      let time: any = null;
-      return () => {
-        if (time) {
-          clearTimeout(time);
-        }
-        time = setTimeout(fn, delay);
-      };
-    };
-    const scroll = () => {
-      let MdEle: any = document.querySelector(".main");
-      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
-      scrollTop >= 400 ? (state.flag = true) : (state.flag = false);
-    };
-
-    onMounted(() => {
-      let MdEle: any = document.querySelector(".main");
-      MdEle.onscroll = debonce(scroll, 500); // 每隔 0.5s 输出
-    });
-
     return {
       ...toRefs(state),
       handle,
