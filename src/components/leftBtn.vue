@@ -73,6 +73,18 @@ export default defineComponent({
       }
     };
 
+
+    const scroll = () => {
+      let MdEle: any = document.querySelector(".main");
+      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      scrollTop >= 400 ? (state.flag = true) : (state.flag = false);
+    };
+
+    onMounted(() => {
+      let MdEle: any = document.querySelector(".main");
+      proxy.$utils.watchScroll(scroll, 500, MdEle);
+    });
+
     return {
       ...toRefs(state),
       handle,
