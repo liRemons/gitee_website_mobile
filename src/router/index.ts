@@ -69,6 +69,15 @@ const routes: Array<RouteRecordRaw> = [
       icon:''
     }
   },
+  {
+    path: '/other',
+    name: 'other',
+    component: () => import('@/components/md.vue'),
+    meta:{
+      title:'其它',
+      icon:''
+    }
+  },
   
 ]
 

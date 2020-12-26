@@ -5,7 +5,7 @@
         width="8rem"
         height="8rem"
         round
-        :src="require('@/assets/img/avatar.jpg')"
+        :src="$img + 'avatar.jpg'"
       />
     </div>
     <van-cell center label="前端开发工程师" title="李润泉" />
@@ -26,7 +26,7 @@
             :key="item.icon"
             @click="contactOptionClick(item)"
           >
-            <img :src="require(`@/assets/img/${item.icon}.png`)" alt="" />
+            <img :src="$img + `${item.icon}.png`" alt="" />
           </span>
         </div>
       </template>
@@ -42,9 +42,7 @@
         value="查看二维码"
         clickable
         @click="
-          ImagePreview([
-            require(`@/assets/img/${contactOptionDetail.img}QR.png`),
-          ]),
+          ImagePreview([$img + `${contactOptionDetail.img}QR.png`]),
             (show = false)
         "
       />
@@ -83,8 +81,8 @@ export default defineComponent({
         { icon: "wap-home-o", introduce: "故乡：山东 菏泽" },
       ],
       contactOption: [
-        { icon: "wechat", visible: false, img: "weChat", value: "liRemons" },
-        { icon: "qq", visible: false, img: "QQ", value: "1759005892" },
+        { icon: "weChat", visible: false, img: "weChat", value: "liRemons" },
+        { icon: "QQ", visible: false, img: "QQ", value: "1759005892" },
         { icon: "dingTalk", visible: false, img: "ding", value: "remons" },
       ],
       show: false,

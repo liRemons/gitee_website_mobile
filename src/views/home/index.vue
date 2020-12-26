@@ -13,7 +13,7 @@
           width="8rem"
           height="8rem"
           round
-          :src="require('@/assets/img/avatar.jpg')"
+          :src="$img + 'avatar.jpg'"
         />
       </template>
     </van-cell>
@@ -29,7 +29,7 @@
             width="8rem"
             height="8rem"
             fit="contain"
-            :src="require(`@/assets/img/${item.name}.png`)"
+            :src="$img + `${item.name}.png`"
           />
         </template>
       </van-grid-item>
