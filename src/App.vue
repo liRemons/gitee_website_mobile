@@ -20,8 +20,8 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-body {
-  font-size: 1.2rem;
+#app {
+  font-size: 1.4rem;
 }
 ul li{
   list-style: inside;
