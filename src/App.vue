@@ -21,6 +21,15 @@ export default defineComponent({
 
 <style lang="less">
 #app {
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+}
+ul li{
+  list-style: inside;
+}
+ol li{
+  list-style: circle;
+}
+li p{
+  display: inline-block;
 }
 </style>
