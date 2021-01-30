@@ -1,12 +1,7 @@
 <template>
   <div>
     <div class="avatar">
-      <van-image
-        width="8rem"
-        height="8rem"
-        round
-        :src="$img + 'avatar.jpg'"
-      />
+      <van-image width="8rem" height="8rem" round :src="$img + 'avatar.jpg'" />
     </div>
     <van-cell center label="前端开发工程师" title="李润泉" />
     <van-cell
@@ -67,15 +62,21 @@ export default defineComponent({
       30 /
       12
     ).toFixed(2);
-    const year = parseInt(count);
-    const month = Math.ceil(count.split(".")[1] * 0.12);
+    let year = parseInt(count),
+      month = 0;
+
+    if (Math.ceil(count.split(".")[1] * 0.12) === 12) {
+      year += 1;
+    } else {
+      month = Math.ceil(count.split(".")[1] * 0.12);
+    }
     const state = reactive({
       data: [
         { icon: "envelop-o", introduce: "remons@foxmail.com" },
         { icon: "phone-o", introduce: "15563043705", value: "15563043705" },
         {
           icon: "underway-o",
-          introduce: `码龄：${year} 年 ${month} 个月`,
+          introduce: `码龄：${year} 年 ${month ?'个月':''} `,
         },
         { icon: "location-o", introduce: "工作地：浙江 杭州" },
         { icon: "wap-home-o", introduce: "故乡：山东 菏泽" },
