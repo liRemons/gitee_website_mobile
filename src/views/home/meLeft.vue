@@ -45,15 +45,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, reactive, toRefs, getCurrentInstance } from "vue";
+<script >
+import {  reactive, toRefs, getCurrentInstance } from "vue";
 import { ImagePreview } from "vant";
-export default defineComponent({
+export default {
   setup() {
-    const { proxy }: any = getCurrentInstance();
+    const { proxy } = getCurrentInstance();
     const initialTime = new Date("2018-03-12").getTime();
     const nowTime = new Date().getTime();
-    const count: any = (
+    const count = (
       (nowTime - initialTime) /
       1000 /
       60 /
@@ -76,7 +76,7 @@ export default defineComponent({
         { icon: "phone-o", introduce: "15563043705", value: "15563043705" },
         {
           icon: "underway-o",
-          introduce: `码龄：${year} 年 ${month ?'个月':''} `,
+          introduce: `码龄：${year} 年 ${month ? "个月" : ""} `,
         },
         { icon: "location-o", introduce: "工作地：浙江 杭州" },
         { icon: "wap-home-o", introduce: "故乡：山东 菏泽" },
@@ -87,14 +87,14 @@ export default defineComponent({
         { icon: "dingTalk", visible: false, img: "ding", value: "remons" },
       ],
       show: false,
-      contactOptionDetail: <any>{},
+      contactOptionDetail: {},
     });
 
-    const handle = (data: any) => {
+    const handle = (data) => {
       data.value && (window.location.href = `tel:${data.value}`);
     };
 
-    const contactOptionClick = (data: any) => {
+    const contactOptionClick = (data) => {
       state.show = true;
       state.contactOptionDetail = data;
     };
@@ -112,7 +112,7 @@ export default defineComponent({
       copy,
     };
   },
-});
+};
 </script>
 
 <style scoped lang="less">

@@ -4,32 +4,32 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, getCurrentInstance } from "vue";
+<script >
+import { getCurrentInstance } from "vue";
 import Layout from "@/components/Layout/index.vue";
-export default defineComponent({
-  components: { Layout},
+export default {
+  components: { Layout },
   setup() {
-    const { proxy }: any = getCurrentInstance();
+    const { proxy } = getCurrentInstance();
     if (proxy.$utils.IsPC()) {
       window.location.href = "https://remons.gitee.io";
     }
     return {};
   },
-});
+};
 </script>
 
 <style lang="less">
 #app {
   font-size: 1.4rem;
 }
-ul li{
+ul li {
   list-style: inside;
 }
-ol li{
+ol li {
   list-style: circle;
 }
-li p{
+li p {
   display: inline-block;
 }
 </style>

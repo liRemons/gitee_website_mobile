@@ -15,16 +15,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import {
-  defineComponent,
-  getCurrentInstance,
-  toRefs,
-  reactive,
-  onMounted,
-} from "vue";
+<script>
+import { getCurrentInstance, toRefs, reactive, onMounted } from "vue";
 
-export default defineComponent({
+export default {
   props: {
     options: {
       type: Array,
@@ -32,8 +26,8 @@ export default defineComponent({
     },
   },
   setup() {
-    const { proxy }: any = getCurrentInstance();
-    const state: any = reactive({
+    const { proxy } = getCurrentInstance();
+    const state = reactive({
       option: [
         { name: "top", icon: "upgrade" },
         {
@@ -49,16 +43,16 @@ export default defineComponent({
     });
 
     if (proxy.options.length !== 0) {
-      state.options = state.option.filter((item: any) =>
+      state.options = state.option.filter((item) =>
         proxy.option.includes(item)
       );
     }
 
-    const handle = (type: string) => {
+    const handle = (type) => {
       if (type === "home") {
         proxy.$router.replace("/");
       } else if (type === "top") {
-        let ele: any = document.querySelector(".main") as Element;
+        let ele = document.querySelector(".main");
         let eleTop = ele.scrollTop;
         let speed = Math.floor(ele.scrollTop / 8);
         let timer = setInterval(() => {
@@ -73,15 +67,14 @@ export default defineComponent({
       }
     };
 
-
     const scroll = () => {
-      let MdEle: any = document.querySelector(".main");
+      let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       scrollTop >= 400 ? (state.flag = true) : (state.flag = false);
     };
 
     onMounted(() => {
-      let MdEle: any = document.querySelector(".main");
+      let MdEle = document.querySelector(".main");
       proxy.$utils.watchScroll(scroll, 500, MdEle);
     });
 
@@ -90,7 +83,7 @@ export default defineComponent({
       handle,
     };
   },
-});
+};
 </script>
 
 <style scoped lang="less">

@@ -1,6 +1,9 @@
 <template>
   <div class="bg">
-    <van-nav-bar :left-arrow="$route.path !== '/'" @click-left="$router.go(-1)">
+    <van-nav-bar
+      :left-arrow="$route.path !== '/'"
+      @click-left="$router.replace('/')"
+    >
       <template #right>
         <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
       </template>
@@ -15,10 +18,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-
-export default defineComponent({
+<script >
+export default {
   components: {},
   setup() {
     const reload = () => {
@@ -28,7 +29,7 @@ export default defineComponent({
       reload,
     };
   },
-});
+};
 </script>
 
 <style scoped lang="less">

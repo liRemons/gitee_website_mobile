@@ -1,8 +1,9 @@
+const path = require('path')
 module.exports = {
   indexPath: "index.html",
   assetsDir: "./static",
-  publicPath: '/fe_mobile/',
   productionSourceMap: false,
+  publicPath: process.env.NODE_ENV === 'production' ? '././':'',
   chainWebpack: config => {
     config
       .plugin('html')
@@ -10,7 +11,9 @@ module.exports = {
         args[0].title = 'Remons'
         return args
       })
-  }, devServer: {
+  },
+
+  devServer: {
     proxy: {
       '/api': {
         target: 'https://remons.gitee.io/feq',
@@ -20,6 +23,15 @@ module.exports = {
         }
       }
     }
+  },
+  pluginOptions: {
+    'copy-webpack-plugin': {
+      patterns: [
+        {
+          from: path.join(__dirname, 'public/.spa'),
+          to: 'dist/'
+        }
+      ],
+    }
   }
-
 }

@@ -1,7 +1,7 @@
 import req from "../axios";
-let service: any = req.service;
+let service= req.service;
 const HOME = {
-  getFileOption(name: string) {
+  getFileOption(name) {
     return service({
       url: `/summarize/html/${name}.html`,
       method: "get"

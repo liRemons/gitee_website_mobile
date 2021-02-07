@@ -21,15 +21,15 @@
       <van-grid-item
         v-for="item in routes"
         :key="item.path"
-        :text="item.meta.title"
-        :to="item.path"
+        :text="item.title"
+        @click="toRouter(item)"
       >
         <template #icon>
           <van-image
             width="8rem"
             height="8rem"
             fit="contain"
-            :src="$img + `${item.name}.png`"
+            :src="$img + `${item.id}.png`"
           />
         </template>
       </van-grid-item>
@@ -44,26 +44,40 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, getCurrentInstance, reactive, toRefs } from "vue";
-import routerData from "@/router/index.ts";
+<script >
+import { reactive, toRefs, getCurrentInstance } from "vue";
 import MeLeft from "./meLeft.vue";
-export default defineComponent({
+export default {
   components: { MeLeft },
   setup() {
-    const {
-      options: { routes },
-    } = routerData;
-
+    const { proxy } = getCurrentInstance();
     const state = reactive({
-      routes: routes.filter((item: any) => item.meta),
+      routes: [
+        { title: "html/css", id: "HTML_CSS", path: "/markdown" },
+        { title: "JS", id: "JS", path: "/markdown" },
+        { title: "Vue", id: "Vue", path: "/markdown" },
+        { title: "React", id: "React", path: "/markdown" },
+        { title: "TypeScript", id: "TypeScript", path: "/markdown" },
+        { title: "Node", id: "Node", path: "/markdown" },
+        { title: "Electron", id: "Electron", path: "/markdown" },
+        { title: "其它", id: "other", path: "/markdown" },
+      ],
       show: false,
     });
+    const toRouter = (data) => {
+      proxy.$router.replace({
+        path: data.path,
+        query: {
+          id: data.id,
+        },
+      });
+    };
     return {
       ...toRefs(state),
+      toRouter,
     };
   },
-});
+};
 </script>
 
 <style scoped lang="less">
