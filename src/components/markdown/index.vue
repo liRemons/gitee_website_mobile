@@ -49,7 +49,7 @@ export default {
         state.code = router.query.id;
         state.authorList = [];
         proxy.$nextTick(() => {
-          getFile();
+          state.code && getFile();
         });
       }
     );

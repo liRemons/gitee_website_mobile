@@ -99,9 +99,6 @@ export default {
   .van-grid-item__content {
     border-radius: 5px;
   }
-
-  .van-popup {
-  }
   .van-popup::before {
     content: "";
     position: absolute;
