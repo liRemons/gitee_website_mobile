@@ -18,7 +18,6 @@
 
 <script >
 export default {
-  components: {},
   setup() {
     const reload = () => {
       window.location.reload();

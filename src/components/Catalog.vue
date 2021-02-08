@@ -38,9 +38,10 @@
 </template>
 
 <script>
-import { getCurrentInstance, onMounted, reactive, toRefs, onSearch } from "vue";
+import { getCurrentInstance, onMounted, reactive, toRefs } from "vue";
 
 export default {
+  name:"Catalog",
   props: { list: Array, activeIndex: Number },
   setup() {
     const { proxy } = getCurrentInstance();

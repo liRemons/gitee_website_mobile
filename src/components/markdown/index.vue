@@ -32,7 +32,6 @@ import { ImagePreview } from "vant";
 export default {
   components: { Catalog },
   setup() {
-    let list = [];
     const { proxy } = getCurrentInstance();
     const state = reactive({
       html: "",

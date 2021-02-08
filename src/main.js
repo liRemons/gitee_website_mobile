@@ -9,7 +9,7 @@ import methods from 'methods-r'
 import Vant from 'vant';
 import 'vant/lib/index.css'
 import api from './api'
-import LeftBtn from '@/components/leftBtn.vue'
+import LeftBtn from './components/leftBtn.vue'
 app.component('LeftBtn', LeftBtn)
 app.config.globalProperties.$api = api
 import { ImagePreview } from "vant";
