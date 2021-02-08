@@ -44,7 +44,6 @@ export default {
     watch(
       () => proxy.$route,
       (router, prev) => {
-        list = [];
         state.code = router.query.id;
         state.authorList = [];
         proxy.$nextTick(() => {
