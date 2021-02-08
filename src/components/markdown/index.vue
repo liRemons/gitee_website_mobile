@@ -14,9 +14,10 @@
       :lock-scroll="false"
     >
       <Catalog
-      v-if="showCatalog"
+        v-if="showCatalog"
         @close="showCatalog = false"
         @scrollTo="scrollTo"
+        @search="search"
         :list="authorList"
         :activeIndex="activeIndex"
       ></Catalog>
@@ -59,13 +60,15 @@ export default {
     const createHeader = () => {
       let arr = [];
       document.querySelectorAll(".md .md-header-anchor").forEach((item) => {
-        arr.push({
-          outerHTML: item.parentNode.outerHTML,
-          innerText: item.parentNode.innerText,
-          nodeName: item.parentNode.nodeName,
-          offsetTop: item.parentNode.offsetTop,
-          classActive: false,
-        });
+        if (item.parentNode.nodeName !== "H2") {
+          arr.push({
+            outerHTML: item.parentNode.outerHTML,
+            innerText: item.parentNode.innerText,
+            nodeName: item.parentNode.nodeName,
+            offsetTop: item.parentNode.offsetTop,
+            classActive: false,
+          });
+        }
       });
       state.authorList = arr;
     };
@@ -98,11 +101,24 @@ export default {
         ImagePreview([e.target.currentSrc]);
       }
     };
+
+    const search = (val) => {
+      createHeader();
+      if (val) {
+        state.authorList = state.authorList.filter((item) =>
+          item.innerText.includes(val)
+        );
+        if (state.authorList.length === 0) {
+          createHeader();
+        }
+      }
+    };
     return {
       ...toRefs(state),
       scrollTo,
       handleCatalog,
       proview,
+      search,
     };
   },
 };

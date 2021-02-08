@@ -6,9 +6,25 @@
       @click-left="close"
     >
       <template #right>
-        <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
+        <van-icon
+          @click="inputFlag = true"
+          name="search"
+          v-if="$route.path !== '/'"
+          size="20"
+        />
       </template>
     </van-nav-bar>
+    <form action="/" v-if="inputFlag">
+      <van-search
+        v-model="value"
+        show-action
+        shape="round"
+        background="transparent"
+        placeholder="请输入搜索关键词"
+        @search="$emit('search', value)"
+        @cancel="onCancel"
+      />
+    </form>
     <div class="main menu">
       <div
         :class="{ active: index === activeIndex }"
@@ -22,12 +38,16 @@
 </template>
 
 <script>
-import { getCurrentInstance, onMounted } from "vue";
+import { getCurrentInstance, onMounted, reactive, toRefs, onSearch } from "vue";
 
 export default {
   props: { list: Array, activeIndex: Number },
   setup() {
     const { proxy } = getCurrentInstance();
+    const state = reactive({
+      value: "",
+      inputFlag: false,
+    });
     onMounted(() => {
       proxy.$nextTick(() => {
         let author = document.querySelector(".menu");
@@ -44,8 +64,16 @@ export default {
     const handle = (index) => {
       proxy.$emit("scrollTo", index);
     };
+
+    const onCancel = () => {
+      proxy.$emit("search", "");
+      state.value = "";
+      state.inputFlag = false;
+    };
     return {
       close,
+      ...toRefs(state),
+      onCancel,
       handle,
     };
   },
@@ -81,6 +109,10 @@ export default {
   }
   .active {
     background: rgba(213, 231, 255, 0.801);
+    color: rgb(72, 105, 255);
+  }
+  .van-search__action:active {
+    background: transparent;
     color: rgb(72, 105, 255);
   }
 }

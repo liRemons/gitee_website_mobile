@@ -4,9 +4,7 @@
       :left-arrow="$route.path !== '/'"
       @click-left="$router.replace('/')"
     >
-      <template #right>
-        <van-icon v-if="$route.path !== '/'" name="weapp-nav" size="20" />
-      </template>
+     
       <template #title>
         <div @click="reload">
           {{ $route.meta.title || "Remons" }}
