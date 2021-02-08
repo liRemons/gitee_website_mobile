@@ -12,12 +12,18 @@ export default {
   ],
   build: {
     assetsDir: "./static",
+    // 配置入口文件
+    // rollupOptions: {
+    //   input: {
+    //     main: resolve(__dirname, 'mindex.html'),
+    //   }
+    // },
   },
   server:{
     proxy: {
       "/api": {
         target: "https://remons.gitee.io/feq",
-        changeOrigin: true, // 允许跨域
+        changeOrigin: true, 
         rewrite: (path) => path.replace(/^\/api/, '/'),
       },
     },
