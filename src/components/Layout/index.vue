@@ -4,15 +4,15 @@
       :left-arrow="$route.path !== '/'"
       @click-left="$router.replace('/')"
     >
-     
       <template #title>
         <div @click="reload">
           {{ $route.query.title || "Remons" }}
         </div>
       </template>
     </van-nav-bar>
-
-    <div class="main"><router-view></router-view></div>
+    <div class="main">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
