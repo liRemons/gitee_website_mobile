@@ -57,8 +57,9 @@ export default {
 
     const createHeader = () => {
       let arr = [];
-      document.querySelectorAll(".md .md-header-anchor").forEach((item) => {
-        if (item.parentNode.nodeName !== "H2") {
+      let anchor = document.querySelectorAll(".md .md-header-anchor");
+      anchor.forEach((item) => {
+        if (item.parentNode.nodeName !== "H2" || anchor.length === 1) {
           arr.push({
             outerHTML: item.parentNode.outerHTML,
             innerText: item.parentNode.innerText,
