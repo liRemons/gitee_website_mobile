@@ -60,6 +60,8 @@ export default {
         { title: "TypeScript", id: "TypeScript", path: "/markdown" },
         { title: "Node", id: "Node", path: "/markdown" },
         { title: "Electron", id: "Electron", path: "/markdown" },
+        { title: "Webpack", id: "Webpack", path: "/markdown" },
+        { title: "Vite", id: "Vite", path: "/markdown" },
         { title: "其它", id: "other", path: "/markdown" },
       ],
       show: false,
