@@ -45,9 +45,8 @@ export default {
       () => proxy.$route,
       (router, prev) => {
         state.code = router.query.id;
-        state.authorList = [];
         proxy.$nextTick(() => {
-          state.code && getFile();
+          prev.query.id !== state.code && state.code && getFile();
         });
       }
     );
@@ -69,29 +68,49 @@ export default {
           });
         }
       });
+      let index = proxy.$route.query.index
       state.authorList = arr;
+      if(index){
+        scrollTo(index)
+      }
     };
     const getFile = async () => {
       let res = await proxy.$api.HOME.getFileOption(state.code);
       state.html = res;
-      setTimeout(() => {
+      proxy.$nextTick(()=>{
         createHeader();
-      }, 1000);
+      })
+    };
+
+    const changeRouter = (index) => {
+      const { $route } = proxy;
+      proxy.$router.replace({
+        path: $route.path,
+        query: {
+          id: $route.query.id,
+          index: index,
+        },
+      });
     };
 
     // 菜单控制
     const scrollTo = (index) => {
       let mdEle = document.querySelector(".main");
       state.activeIndex = index;
+      changeRouter(index);
       mdEle.scrollTop = state.authorList[index].offsetTop - 100;
     };
 
     const handleCatalog = () => {
+      createHeader();
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       state.activeIndex = state.authorList.findIndex(
         (item) => item.offsetTop > scrollTop
       );
+      if (state.activeIndex > 0) {
+        changeRouter(state.activeIndex);
+      }
       state.showCatalog = true;
     };
 
