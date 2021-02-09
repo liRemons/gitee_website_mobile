@@ -52,6 +52,8 @@ export default {
     );
     onMounted(() => {
       getFile();
+      let MdEle = document.querySelector(".main");
+      proxy.$utils.watchScroll(scroll, 500, MdEle); // 每隔 0.5s 输出
     });
 
     const createHeader = () => {
@@ -68,18 +70,18 @@ export default {
           });
         }
       });
-      let index = proxy.$route.query.index
+      let index = proxy.$route.query.index;
       state.authorList = arr;
-      if(index){
-        scrollTo(index)
+      if (index) {
+        scrollTo(index);
       }
     };
     const getFile = async () => {
       let res = await proxy.$api.HOME.getFileOption(state.code);
       state.html = res;
-      proxy.$nextTick(()=>{
+      proxy.$nextTick(() => {
         createHeader();
-      })
+      });
     };
 
     const changeRouter = (index) => {
@@ -87,6 +89,7 @@ export default {
       proxy.$router.replace({
         path: $route.path,
         query: {
+          title:$route.query.title,
           id: $route.query.id,
           index: index,
         },
@@ -99,6 +102,16 @@ export default {
       state.activeIndex = index;
       changeRouter(index);
       mdEle.scrollTop = state.authorList[index].offsetTop - 100;
+    };
+    const scroll = () => {
+      let MdEle = document.querySelector(".main");
+      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      let menuIndex = state.authorList.findIndex(
+        (item) => item.offsetTop > scrollTop
+      );
+      if (menuIndex > 0) {
+        changeRouter(menuIndex);
+      }
     };
 
     const handleCatalog = () => {
