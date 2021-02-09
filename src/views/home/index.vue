@@ -71,6 +71,7 @@ export default {
         path: data.path,
         query: {
           id: data.id,
+          title: data.title,
         },
       });
     };

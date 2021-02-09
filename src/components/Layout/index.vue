@@ -7,7 +7,7 @@
      
       <template #title>
         <div @click="reload">
-          {{ $route.meta.title || "Remons" }}
+          {{ $route.query.title || "Remons" }}
         </div>
       </template>
     </van-nav-bar>
