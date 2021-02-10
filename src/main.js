@@ -8,7 +8,7 @@ import store from './store'
 import methods from 'methods-r'
 import Vant from 'vant';
 import 'vant/lib/index.css'
-import '@/assets/css/html.css'
+import 'https://remons.gitee.io/feq/summarize/website/assets/css/markdown.css'
 import api from './api'
 import LeftBtn from './components/leftBtn.vue'
 app.component('LeftBtn', LeftBtn)
