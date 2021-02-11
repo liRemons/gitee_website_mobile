@@ -6,7 +6,7 @@
       </van-button>
     </van-empty>
     <div class="md" v-html="html" @click="proview"></div>
-    <LeftBtn @handleCatalog="handleCatalog"></LeftBtn>
+    <LeftBtn :topFlag="topFlag" @handleCatalog="handleCatalog"></LeftBtn>
     <van-popup
       v-model:show="showCatalog"
       position="right"
@@ -39,6 +39,7 @@ export default {
       authorList: [],
       activeIndex: 0,
       showCatalog: false,
+      topFlag:false
     });
 
     watch(
@@ -106,6 +107,7 @@ export default {
     const scroll = () => {
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
       let menuIndex = state.authorList.findIndex(
         (item) => item.offsetTop > scrollTop
       );

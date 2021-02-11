@@ -5,7 +5,7 @@
         <div
           class="btn"
           :key="item.name"
-          v-show="item.name !== 'top' || flag"
+          v-show="item.name !== 'top' || topFlag"
           @click="handle(item.name)"
         >
           <van-icon :name="item.icon" />
@@ -16,14 +16,15 @@
 </template>
 
 <script>
-import { getCurrentInstance, toRefs, reactive, onMounted } from "vue";
+import { getCurrentInstance, toRefs, reactive } from "vue";
 
 export default {
   props: {
     options: {
       type: Array,
-      default: [],
+      default: ()=>[],
     },
+    topFlag:Boolean
   },
   setup() {
     const { proxy } = getCurrentInstance();
@@ -39,7 +40,6 @@ export default {
           icon: "wap-home-o",
         },
       ],
-      flag: false,
     });
 
     if (proxy.options.length !== 0) {
@@ -66,17 +66,6 @@ export default {
         proxy.$emit("handleCatalog");
       }
     };
-
-    const scroll = () => {
-      let MdEle = document.querySelector(".main");
-      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
-      scrollTop >= 400 ? (state.flag = true) : (state.flag = false);
-    };
-
-    onMounted(() => {
-      let MdEle = document.querySelector(".main");
-      proxy.$utils.watchScroll(scroll, 500, MdEle);
-    });
 
     return {
       ...toRefs(state),

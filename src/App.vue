@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <Layout></Layout>
-  </div>
+  <Layout></Layout>
 </template>
 
 <script >
