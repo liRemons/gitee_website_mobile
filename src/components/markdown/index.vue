@@ -81,12 +81,12 @@ export default {
       let res = await proxy.$api.HOME.getFileOption(state.code);
       state.html = res;
       proxy.$nextTick(() => {
+        createHeader();
         document.querySelectorAll(".CodeMirror").forEach((item) => {
           let copyCodeBox = document.createElement("div");
           copyCodeBox.setAttribute("class", "copy_code");
           item.appendChild(copyCodeBox);
         });
-        createHeader();
       });
     };
 
