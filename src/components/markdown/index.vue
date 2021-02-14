@@ -81,6 +81,11 @@ export default {
       let res = await proxy.$api.HOME.getFileOption(state.code);
       state.html = res;
       proxy.$nextTick(() => {
+        document.querySelectorAll(".CodeMirror").forEach((item) => {
+          let copyCodeBox = document.createElement("div");
+          copyCodeBox.setAttribute("class", "copy_code");
+          item.appendChild(copyCodeBox);
+        });
         createHeader();
       });
     };
@@ -130,6 +135,11 @@ export default {
     };
 
     const proview = (e) => {
+      if (e.target.className === "copy_code") {
+        proxy.$utils.copy(e.target.parentElement);
+        proxy.$toast.success("复制成功");
+        return;
+      }
       if (e.target.nodeName === "IMG") {
         ImagePreview([e.target.currentSrc]);
       }
