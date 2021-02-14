@@ -84,7 +84,7 @@ export default {
       contactOption: [
         { icon: "weChat", visible: false, img: "weChat", value: "liRemons" },
         { icon: "QQ", visible: false, img: "QQ", value: "1759005892" },
-        { icon: "dingTalk", visible: false, img: "ding", value: "remons" },
+        { icon: "GitHub", visible: false, img: "GitHub", value: "remons" },
       ],
       show: false,
       contactOptionDetail: {},
