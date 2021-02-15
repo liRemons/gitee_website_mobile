@@ -39,7 +39,7 @@ export default {
       authorList: [],
       activeIndex: 0,
       showCatalog: false,
-      topFlag:false
+      topFlag: false,
     });
 
     watch(
@@ -63,7 +63,10 @@ export default {
       anchor.forEach((item) => {
         if (item.parentNode.nodeName !== "H2" || anchor.length === 1) {
           arr.push({
-            outerHTML: item.parentNode.outerHTML,
+            outerHTML: item.parentNode.outerHTML.replace(
+              /<a.*?>([\s\S]*)<\/a>/,
+              ""
+            ),
             innerText: item.parentNode.innerText,
             nodeName: item.parentNode.nodeName,
             offsetTop: item.parentNode.offsetTop,
@@ -82,6 +85,18 @@ export default {
       state.html = res;
       proxy.$nextTick(() => {
         createHeader();
+        let a = [...document.querySelectorAll("#write a")].filter((item) =>
+          item.outerHTML.includes("#")
+        );
+        a.forEach((item) => {
+          item.onclick = (e) => {
+            let index = state.authorList.findIndex(
+              (a) => e.target.parentNode.hash.replace("#", "") === a.innerText
+            );
+            index >= 0 && scrollTo(index);
+            return false;
+          };
+        });
         document.querySelectorAll(".CodeMirror").forEach((item) => {
           let copyCodeBox = document.createElement("div");
           copyCodeBox.setAttribute("class", "copy_code");
@@ -95,7 +110,7 @@ export default {
       proxy.$router.replace({
         path: $route.path,
         query: {
-          title:$route.query.title,
+          title: $route.query.title,
           id: $route.query.id,
           index: index,
         },

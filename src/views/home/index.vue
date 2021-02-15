@@ -67,7 +67,7 @@ export default {
       show: false,
     });
     const toRouter = (data) => {
-      proxy.$router.replace({
+      proxy.$router.push({
         path: data.path,
         query: {
           id: data.id,
