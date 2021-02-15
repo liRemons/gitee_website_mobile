@@ -30,4 +30,7 @@ ol li {
 li p {
   display: inline-block;
 }
+#write{
+  background: transparent !important;
+}
 </style>
