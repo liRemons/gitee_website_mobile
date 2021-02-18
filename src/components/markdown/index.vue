@@ -119,10 +119,17 @@ export default {
 
     // 菜单控制
     const scrollTo = (index) => {
-      let mdEle = document.querySelector(".main");
-      state.activeIndex = index;
-      changeRouter(index);
-      mdEle.scrollTop = state.authorList[index].offsetTop - 100;
+      let dom;
+      document.querySelectorAll(".md-header-anchor").forEach((item) => {
+        if (item.parentNode.innerText === state.authorList[index].innerText) {
+          dom = item;
+        }
+      });
+      if (dom) {
+        dom.scrollIntoView({ behavior: "smooth" });
+        state.activeIndex = index;
+        changeRouter(index);
+      }
     };
     const scroll = () => {
       let MdEle = document.querySelector(".main");

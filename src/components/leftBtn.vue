@@ -22,9 +22,9 @@ export default {
   props: {
     options: {
       type: Array,
-      default: ()=>[],
+      default: () => [],
     },
-    topFlag:Boolean
+    topFlag: Boolean,
   },
   setup() {
     const { proxy } = getCurrentInstance();
@@ -52,16 +52,8 @@ export default {
       if (type === "home") {
         proxy.$router.replace("/");
       } else if (type === "top") {
-        let ele = document.querySelector(".main");
-        let eleTop = ele.scrollTop;
-        let speed = Math.floor(ele.scrollTop / 8);
-        let timer = setInterval(() => {
-          if (ele.scrollTop <= 0) {
-            clearInterval(timer);
-            return;
-          }
-          ele.scrollTop -= speed;
-        }, 30);
+        let ele = document.querySelector("#write");
+        ele.scrollIntoView({ behavior: "smooth" })
       } else {
         proxy.$emit("handleCatalog");
       }
