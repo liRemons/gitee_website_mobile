@@ -143,7 +143,7 @@ export default {
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
       let menuIndex = state.authorList.findIndex(
-        (item) => item.offsetTop  > scrollTop 
+        (item) => item.offsetTop > scrollTop
       );
       if (menuIndex > 0) {
         changeRouter(menuIndex);
@@ -151,6 +151,7 @@ export default {
     };
 
     const handleCatalog = () => {
+      watchScroll = false;
       createHeader();
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
