@@ -97,7 +97,7 @@ export default {
             return false;
           };
         });
-        document.querySelectorAll(".CodeMirror").forEach((item) => {
+        document.querySelectorAll(".md-fences").forEach((item) => {
           let copyCodeBox = document.createElement("div");
           copyCodeBox.setAttribute("class", "copy_code");
           item.appendChild(copyCodeBox);
