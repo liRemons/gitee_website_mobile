@@ -31,8 +31,10 @@ import Catalog from "../Catalog.vue";
 import { ImagePreview } from "vant";
 export default {
   components: { Catalog },
+
   setup() {
     const { proxy } = getCurrentInstance();
+    let watchScroll = false;
     const state = reactive({
       html: "",
       code: proxy.$route.query.id,
@@ -132,11 +134,16 @@ export default {
       }
     };
     const scroll = () => {
+      if (!watchScroll) {
+        watchScroll = true;
+        return;
+      }
+
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
       let menuIndex = state.authorList.findIndex(
-        (item) => item.offsetTop > scrollTop
+        (item) => item.offsetTop  > scrollTop 
       );
       if (menuIndex > 0) {
         changeRouter(menuIndex);
