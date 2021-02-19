@@ -12,7 +12,6 @@ export default {
     if (proxy.$utils.IsPC()) {
       window.location.href = "https://remons.gitee.io";
     }
-    return {};
   },
 };
 </script>
@@ -30,7 +29,7 @@ ol li {
 li p {
   display: inline-block;
 }
-#write{
+#write {
   background: transparent !important;
 }
 </style>
