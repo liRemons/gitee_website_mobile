@@ -27,7 +27,7 @@
     </form>
     <div class="main menu">
       <div
-        :class="{ active: index === activeIndex }"
+        :class="{ active: index == activeIndex }"
         v-for="(item, index) in list"
         v-html="item.outerHTML"
         :key="item.outerHTML"

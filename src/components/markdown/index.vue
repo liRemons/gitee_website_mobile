@@ -138,29 +138,20 @@ export default {
         watchScroll = true;
         return;
       }
-
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
-      let menuIndex = state.authorList.findIndex(
-        (item) => item.offsetTop > scrollTop
-      );
-      if (menuIndex > 0) {
-        changeRouter(menuIndex);
-      }
-    };
-
-    const handleCatalog = () => {
-      watchScroll = false;
-      createHeader();
-      let MdEle = document.querySelector(".main");
-      let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       state.activeIndex = state.authorList.findIndex(
         (item) => item.offsetTop > scrollTop
       );
       if (state.activeIndex > 0) {
         changeRouter(state.activeIndex);
       }
+    };
+
+    const handleCatalog = () => {
+      watchScroll = false;
+      createHeader();
       state.showCatalog = true;
     };
 
