@@ -93,7 +93,7 @@ export default {
         a.forEach((item) => {
           item.onclick = (e) => {
             let index = state.authorList.findIndex(
-              (a) => e.target.parentNode.hash.replace("#", "") === a.innerText
+              (a) => decodeURIComponent(e.target.parentNode.hash).replace("#", "") === a.innerText
             );
             index >= 0 && scrollTo(index);
             return false;
