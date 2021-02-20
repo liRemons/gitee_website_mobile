@@ -10,6 +10,7 @@
     <van-popup
       v-model:show="showCatalog"
       position="right"
+      teleport=".bg"
       :style="{ height: '100%', width: '80%' }"
       :lock-scroll="false"
     >

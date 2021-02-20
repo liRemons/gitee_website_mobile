@@ -1,5 +1,5 @@
 <template>
-  <div class="bg">
+  <div class="child_bg">
     <van-nav-bar
       title="目录"
       :left-arrow="$route.path !== '/'"
@@ -117,14 +117,14 @@ export default {
     color: rgb(72, 105, 255);
   }
 }
-.bg {
+.child_bg {
   position: absolute;
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
 }
-.bg::before {
+.child_bg::before {
   content: "";
   position: absolute;
   top: 0;
