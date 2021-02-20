@@ -32,4 +32,7 @@ li p {
 #write {
   background: transparent !important;
 }
+body,font {
+  color: #000 !important;
+}
 </style>
