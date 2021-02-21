@@ -94,7 +94,11 @@ export default {
         a.forEach((item) => {
           item.onclick = (e) => {
             let index = state.authorList.findIndex(
-              (a) => decodeURIComponent(e.target.parentNode.hash).replace("#", "") === a.innerText
+              (a) =>
+                decodeURIComponent(e.target.parentNode.hash).replace(
+                  "#",
+                  ""
+                ) === a.innerText
             );
             index >= 0 && scrollTo(index);
             return false;
@@ -142,9 +146,16 @@ export default {
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
       scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
-      state.activeIndex = state.authorList.findIndex(
-        (item) => item.offsetTop > scrollTop
+      state.activeIndex = Math.max(
+        ...state.authorList
+          .map((item, index) => {
+            if (scrollTop >= item.offsetTop) {
+              return index;
+            }
+          })
+          .filter((item) => item !== undefined)
       );
+
       if (state.activeIndex > 0) {
         changeRouter(state.activeIndex);
       }
