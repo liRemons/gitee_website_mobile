@@ -38,7 +38,7 @@
 </template>
 
 <script>
-import { getCurrentInstance, onMounted, reactive, toRefs } from "vue";
+import { getCurrentInstance, reactive, toRefs } from "vue";
 
 export default {
   name:"Catalog",
@@ -48,16 +48,6 @@ export default {
     const state = reactive({
       value: "",
       inputFlag: false,
-    });
-    onMounted(() => {
-      proxy.$nextTick(() => {
-        let author = document.querySelector(".menu");
-        let active = document.querySelector(".menu .active");
-        if (active) {
-          Number(active.offsetTop) > window.innerHeight - 150 &&
-            (author.scrollTop = Number(active.offsetTop) - 100);
-        }
-      });
     });
     const close = () => {
       proxy.$emit("close");

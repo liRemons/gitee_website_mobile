@@ -35,7 +35,6 @@ export default {
 
   setup() {
     const { proxy } = getCurrentInstance();
-    let watchScroll = false;
     const state = reactive({
       html: "",
       code: proxy.$route.query.id,
@@ -43,6 +42,7 @@ export default {
       activeIndex: 0,
       showCatalog: false,
       topFlag: false,
+      watchScrollFlag: true,
     });
 
     watch(
@@ -59,7 +59,7 @@ export default {
       let MdEle = document.querySelector(".main");
       proxy.$utils.watchScroll(scroll, 500, MdEle); // 每隔 0.5s 输出
     });
-
+    // 创建标题的目录
     const createHeader = () => {
       let arr = [];
       let anchor = document.querySelectorAll(".md .md-header-anchor");
@@ -77,12 +77,9 @@ export default {
           });
         }
       });
-      let index = proxy.$route.query.index;
       state.authorList = arr;
-      if (index) {
-        scrollTo(index);
-      }
     };
+    // 获取数据
     const getFile = async () => {
       let res = await proxy.$api.HOME.getFileOption(state.code);
       state.html = res;
@@ -91,6 +88,7 @@ export default {
         let a = [...document.querySelectorAll("#write a")].filter((item) =>
           item.outerHTML.includes("#")
         );
+        // 阻止锚点，同时加入自定义的事件代替锚点
         a.forEach((item) => {
           item.onclick = (e) => {
             let index = state.authorList.findIndex(
@@ -104,6 +102,9 @@ export default {
             return false;
           };
         });
+        // 首次进入时，跳转
+        proxy.$route.query.index && scrollTo(proxy.$route.query.index);
+        // 给代码块加入复制的类名
         document.querySelectorAll(".md-fences").forEach((item) => {
           let copyCodeBox = document.createElement("div");
           copyCodeBox.setAttribute("class", "copy_code");
@@ -111,7 +112,7 @@ export default {
         });
       });
     };
-
+    // 当前的标题变化时，改变路由
     const changeRouter = (index) => {
       const { $route } = proxy;
       proxy.$router.replace({
@@ -126,6 +127,7 @@ export default {
 
     // 菜单控制
     const scrollTo = (index) => {
+      state.watchScrollFlag = false;
       let dom;
       document.querySelectorAll(".md-header-anchor").forEach((item) => {
         if (item.parentNode.innerText === state.authorList[index].innerText) {
@@ -139,13 +141,15 @@ export default {
       }
     };
     const scroll = () => {
-      if (!watchScroll) {
-        watchScroll = true;
+      if (!state.watchScrollFlag) {
+        state.watchScrollFlag = true;
         return;
       }
       let MdEle = document.querySelector(".main");
       let scrollTop = MdEle.scrollTop || document.documentElement.scrollTop;
+      // 控制回到顶部图标显示
       scrollTop >= 400 ? (state.topFlag = true) : (state.topFlag = false);
+      // 找出满足条件的标题，用来添加active属性及改变路由
       state.activeIndex = Math.max(
         ...state.authorList
           .map((item, index) => {
@@ -155,29 +159,22 @@ export default {
           })
           .filter((item) => item !== undefined)
       );
-
-      if (state.activeIndex > 0) {
-        changeRouter(state.activeIndex);
-      }
+      state.activeIndex > 0 && changeRouter(state.activeIndex);
     };
-
+    // 打开目录
     const handleCatalog = () => {
-      watchScroll = false;
-      createHeader();
       state.showCatalog = true;
     };
-
+    // 点击html事件，预览或者copy
     const proview = (e) => {
       if (e.target.className === "copy_code") {
         proxy.$utils.copy(e.target.parentElement);
         proxy.$toast.success("复制成功");
         return;
       }
-      if (e.target.nodeName === "IMG") {
-        ImagePreview([e.target.currentSrc]);
-      }
+      e.target.nodeName === "IMG" && ImagePreview([e.target.currentSrc]);
     };
-
+    // 标题搜索的功能
     const search = (val) => {
       createHeader();
       if (val) {
