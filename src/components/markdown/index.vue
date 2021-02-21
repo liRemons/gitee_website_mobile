@@ -11,11 +11,11 @@
       v-model:show="showCatalog"
       position="right"
       teleport=".bg"
+      v-if="showCatalog"
       :style="{ height: '100%', width: '80%' }"
       :lock-scroll="false"
     >
       <Catalog
-        v-if="showCatalog"
         @close="showCatalog = false"
         @scrollTo="scrollTo"
         @search="search"
@@ -159,7 +159,7 @@ export default {
           })
           .filter((item) => item !== undefined)
       );
-      state.activeIndex > 0 && changeRouter(state.activeIndex);
+      state.activeIndex >= 0 && changeRouter(state.activeIndex);
     };
     // 打开目录
     const handleCatalog = () => {

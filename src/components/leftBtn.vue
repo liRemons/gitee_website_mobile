@@ -53,7 +53,7 @@ export default {
         proxy.$router.replace("/");
       } else if (type === "top") {
         let ele = document.querySelector("#write");
-        ele.scrollIntoView({ behavior: "smooth" })
+        ele.scrollIntoView({ behavior: "smooth" });
       } else {
         proxy.$emit("handleCatalog");
       }
@@ -81,7 +81,7 @@ export default {
     box-shadow: 0px 0px 6px rgba(92, 92, 92, 0.397);
     margin-bottom: 1rem;
     font-size: 2.2rem;
-    line-height: 5rem;
+    line-height: 5.1rem;
     text-align: center;
   }
   .btn:active {

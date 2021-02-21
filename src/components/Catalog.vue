@@ -38,16 +38,20 @@
 </template>
 
 <script>
-import { getCurrentInstance, reactive, toRefs } from "vue";
+import { getCurrentInstance, reactive, toRefs, onMounted } from "vue";
 
 export default {
-  name:"Catalog",
+  name: "Catalog",
   props: { list: Array, activeIndex: Number },
   setup() {
     const { proxy } = getCurrentInstance();
     const state = reactive({
       value: "",
       inputFlag: false,
+    });
+    onMounted(() => {
+      let dom = document.querySelector(".active");
+      dom && dom.scrollIntoView({ behavior: "smooth" });
     });
     const close = () => {
       proxy.$emit("close");
