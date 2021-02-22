@@ -37,6 +37,7 @@ export default {
 <style lang="less">
 #app {
   font-size: 1.4rem;
+  font-family: PingFang SC;
 }
 ul li {
   list-style: inside;

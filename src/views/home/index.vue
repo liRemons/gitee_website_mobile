@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-cell
+    <!-- <van-cell
       center
       label="前端开发工程师"
       title="李润泉"
@@ -16,7 +16,7 @@
           :src="$img + 'avatar.jpg'"
         />
       </template>
-    </van-cell>
+    </van-cell> -->
     <van-grid :column-num="3" square :gutter="10" :border="false">
       <van-grid-item
         v-for="item in routes"
@@ -34,22 +34,16 @@
         </template>
       </van-grid-item>
     </van-grid>
-    <van-popup
-      v-model:show="show"
-      position="left"
-      :style="{ height: '100%', width: '70%' }"
-    >
-      <MeLeft></MeLeft>
-    </van-popup>
+    
   </div>
 </template>
 
 <script >
 import { reactive, toRefs, getCurrentInstance, onMounted } from "vue";
 import XLSX from "xlsx";
-import MeLeft from "./meLeft.vue";
+
 export default {
-  components: { MeLeft },
+
   setup() {
     const { proxy } = getCurrentInstance();
     const state = reactive({
@@ -110,18 +104,7 @@ export default {
   .van-grid-item__content {
     border-radius: 5px;
   }
-  .van-popup::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("../../assets/img/bg.jpg");
-    filter: blur(5px);
-    z-index: -1;
-    background-size: cover;
-  }
+  
   .van-grid-item__text {
     color: #000;
   }
