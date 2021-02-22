@@ -20,7 +20,6 @@
         @scrollTo="scrollTo"
         @search="search"
         :list="authorList"
-        :activeIndex="activeIndex"
       ></Catalog>
     </van-popup>
   </div>
@@ -63,17 +62,16 @@ export default {
     const createHeader = () => {
       let arr = [];
       let anchor = document.querySelectorAll(".md .md-header-anchor");
-      anchor.forEach((item) => {
+      anchor.forEach((item, index) => {
         if (item.parentNode.nodeName !== "H2" || anchor.length === 1) {
+          const { innerText, nodeName, offsetTop, outerHTML } = item.parentNode;
           arr.push({
-            outerHTML: item.parentNode.outerHTML.replace(
-              /<a.*?>([\s\S]*)<\/a>/,
-              ""
-            ),
-            innerText: item.parentNode.innerText,
-            nodeName: item.parentNode.nodeName,
-            offsetTop: item.parentNode.offsetTop,
+            outerHTML: outerHTML.replace(/<a.*?>([\s\S]*)<\/a>/, ""),
+            innerText,
+            nodeName,
+            offsetTop,
             classActive: false,
+            index,
           });
         }
       });
@@ -127,17 +125,29 @@ export default {
 
     // 菜单控制
     const scrollTo = (index) => {
+      let activeIndex, authorText;
+      if (isNaN(index)) {
+        activeIndex = index.activeIndex;
+        index = index.index;
+        authorText = state.authorList[activeIndex].innerText;
+      } else {
+        authorText = state.authorList[index].innerText;
+      }
       state.watchScrollFlag = false;
       let dom;
       document.querySelectorAll(".md-header-anchor").forEach((item) => {
-        if (item.parentNode.innerText === state.authorList[index].innerText) {
+        if (item.parentNode.innerText === authorText) {
           dom = item;
         }
       });
       if (dom) {
         dom.scrollIntoView({ behavior: "smooth" });
-        state.activeIndex = index;
-        changeRouter(index);
+        if (activeIndex !== undefined) {
+          state.activeIndex = activeIndex;
+        } else {
+          state.activeIndex = index;
+        }
+        changeRouter(state.activeIndex);
       }
     };
     const scroll = () => {
@@ -163,6 +173,7 @@ export default {
     };
     // 打开目录
     const handleCatalog = () => {
+      createHeader();
       state.showCatalog = true;
     };
     // 点击html事件，预览或者copy
@@ -179,7 +190,7 @@ export default {
       createHeader();
       if (val) {
         state.authorList = state.authorList.filter((item) =>
-          item.innerText.includes(val)
+          item.innerText.toLowerCase().includes(val.toLowerCase())
         );
         if (state.authorList.length === 0) {
           createHeader();

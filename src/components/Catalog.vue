@@ -27,11 +27,11 @@
     </form>
     <div class="main menu">
       <div
-        :class="{ active: index == activeIndex }"
+        :class="{ active: index == $route.query.index }"
         v-for="(item, index) in list"
         v-html="item.outerHTML"
         :key="item.outerHTML"
-        @click="handle(index)"
+        @click="handle(item.index, index)"
       ></div>
     </div>
   </div>
@@ -42,7 +42,7 @@ import { getCurrentInstance, reactive, toRefs, onMounted } from "vue";
 
 export default {
   name: "Catalog",
-  props: { list: Array, activeIndex: Number },
+  props: { list: Array },
   setup() {
     const { proxy } = getCurrentInstance();
     const state = reactive({
@@ -56,8 +56,8 @@ export default {
     const close = () => {
       proxy.$emit("close");
     };
-    const handle = (index) => {
-      proxy.$emit("scrollTo", index);
+    const handle = (index, activeIndex) => {
+      proxy.$emit("scrollTo", { index, activeIndex });
     };
 
     const onCancel = () => {
