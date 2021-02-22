@@ -45,27 +45,35 @@
 </template>
 
 <script >
-import { reactive, toRefs, getCurrentInstance } from "vue";
+import { reactive, toRefs, getCurrentInstance, onMounted } from "vue";
+import XLSX from "xlsx";
 import MeLeft from "./meLeft.vue";
 export default {
   components: { MeLeft },
   setup() {
     const { proxy } = getCurrentInstance();
     const state = reactive({
-      routes: [
-        { title: "html/css", id: "HTML_CSS", path: "/markdown" },
-        { title: "JS", id: "JS", path: "/markdown" },
-        { title: "Vue", id: "Vue", path: "/markdown" },
-        { title: "React", id: "React", path: "/markdown" },
-        { title: "TypeScript", id: "TypeScript", path: "/markdown" },
-        { title: "Node", id: "Node", path: "/markdown" },
-        { title: "Electron", id: "Electron", path: "/markdown" },
-        { title: "Webpack", id: "Webpack", path: "/markdown" },
-        { title: "Vite", id: "Vite", path: "/markdown" },
-        { title: "其它", id: "other", path: "/markdown" },
-      ],
+      routes: [],
       show: false,
     });
+    onMounted(() => {
+      getMenuOption();
+    });
+    // 获取菜单
+    const getMenuOption = async () => {
+      let res = await proxy.$api.HOME.getMenuOption("menu");
+      let persons = [];
+      var workbook = XLSX.read(res, { type: "buffer" });
+      for (var sheet in workbook.Sheets) {
+        if (workbook.Sheets.hasOwnProperty(sheet)) {
+          persons = persons.concat(
+            XLSX.utils.sheet_to_json(workbook.Sheets[sheet])
+          );
+          break;
+        }
+      }
+      state.routes = persons;
+    };
     const toRouter = (data) => {
       proxy.$router.push({
         path: data.path,

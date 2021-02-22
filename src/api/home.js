@@ -1,5 +1,5 @@
 import req from "../axios";
-let service= req.service;
+let service = req.service;
 const HOME = {
   getFileOption(name) {
     return service({
@@ -7,6 +7,13 @@ const HOME = {
       method: "get"
     });
   },
+  getMenuOption(name) {
+    return service({
+      url: `/summarize/website/data/${name}.xlsx`,
+      method: "get",
+      responseType: 'arraybuffer',
+    });
+  }
 
 
 }
