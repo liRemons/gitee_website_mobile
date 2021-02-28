@@ -76,7 +76,7 @@ export default {
         { icon: "phone-o", introduce: "15563043705", value: "15563043705" },
         {
           icon: "underway-o",
-          introduce: `码龄：${year} 年 ${month ? "个月" : ""} `,
+          introduce: `码龄：${year} 年 ${month ? `${month}个月` : ""} `,
         },
         { icon: "location-o", introduce: "工作地：浙江 杭州" },
         { icon: "wap-home-o", introduce: "故乡：山东 菏泽" },

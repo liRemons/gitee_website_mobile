@@ -1,22 +1,5 @@
 <template>
   <div>
-    <!-- <van-cell
-      center
-      label="前端开发工程师"
-      title="李润泉"
-      is-link
-      to="/"
-      @click="show = true"
-    >
-      <template #icon>
-        <van-image
-          width="8rem"
-          height="8rem"
-          round
-          :src="$img + 'avatar.jpg'"
-        />
-      </template>
-    </van-cell> -->
     <van-grid :column-num="3" square :gutter="10" :border="false">
       <van-grid-item
         v-for="item in routes"
