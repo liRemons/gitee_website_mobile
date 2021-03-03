@@ -125,7 +125,7 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url("../assets/img/bg.jpg");
+  background: var(--bg);
   filter: blur(5px);
   z-index: -1;
   background-size: cover;

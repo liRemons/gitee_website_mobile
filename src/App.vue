@@ -1,3 +1,11 @@
+<!--
+ * @Description: 
+ * @Version: 
+ * @Autor: 
+ * @Date: 2021-02-07 16:40:52
+ * @LastEditors: Please set LastEditors
+ * @LastEditTime: 2021-03-03 17:10:00
+-->
 <template>
   <Layout></Layout>
 </template>
@@ -9,7 +17,7 @@ export default {
   components: { Layout },
   setup() {
     const { proxy } = getCurrentInstance();
-    
+
     onMounted(() => {
       target();
     });
@@ -33,7 +41,11 @@ export default {
   },
 };
 </script>
-
+<style>
+:root {
+  --bg: url("https://remons.gitee.io/feq/summarize/website/assets/img/h5_bg.jpg");
+}
+</style>
 <style lang="less">
 #app {
   font-size: 1.4rem;
