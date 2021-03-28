@@ -25,6 +25,7 @@
       <router-view></router-view>
     </div>
     <van-popup
+    class="bg_popup"
       v-model:show="show"
       position="left"
       :style="{ height: '100%', width: '70%' }"
@@ -119,7 +120,7 @@ img,
   overflow-y: auto;
 }
 ::v-deep {
-  .van-popup::before {
+  .bg_popup::before {
     content: "";
     position: absolute;
     top: 0;
