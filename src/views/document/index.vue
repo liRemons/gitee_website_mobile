@@ -4,7 +4,7 @@
  * @Author: Remons
  * @Date: 2021-03-28 20:18:01
  * @LastEditors: Remons
- * @LastEditTime: 2021-03-28 20:53:00
+ * @LastEditTime: 2021-03-28 21:07:20
 -->
 <template>
   <div>
@@ -69,10 +69,13 @@ export default {
     };
 
     const confirmPWD = () => {
-      if(state.password ===  "remons" + dateFormat("", "yyyy-MM-dd").replaceAll("-", "")){
-        getDocList()
-      }else{
-         proxy.$toast.fail("密码错误\n请联系开发者");
+      if (
+        state.password ===
+        "remons" + dateFormat("", "yyyy-MM-dd").replace(/-/g, "")
+      ) {
+        getDocList();
+      } else {
+        proxy.$toast.fail("密码错误请联系开发者");
       }
     };
     return {

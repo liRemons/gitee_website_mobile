@@ -4,7 +4,7 @@
  * @Author: Remons
  * @Date: 2021-02-11 16:34:44
  * @LastEditors: Remons
- * @LastEditTime: 2021-03-28 20:33:05
+ * @LastEditTime: 2021-03-28 21:07:56
  */
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -21,6 +21,9 @@ import LeftBtn from './components/leftBtn.vue'
 app.component('LeftBtn', LeftBtn)
 app.config.globalProperties.$api = api
 import { ImagePreview } from "vant";
+// import Vconsole from 'vconsole'
+// let vConsole = new Vconsole()
+// app.use(vConsole)
 app.config.globalProperties.ImagePreview = ImagePreview
 app.config.globalProperties.$utils = methods
 app.config.globalProperties.$img = 'https://remons.gitee.io/feq/summarize/website/assets/img/'
